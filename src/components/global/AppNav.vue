@@ -3,7 +3,7 @@
     <v-app-bar color="#02218f" height="fit-content" class="w-100">
       <v-container fluid="fluid" style="padding-top: 25px">
         <v-row>
-          <v-col cols="3">
+          <v-col cols="2">
             <img
               src="../../../images/logo.png"
               @click="$router.push({ name: 'home' })"
@@ -12,76 +12,63 @@
             />
           </v-col>
           <v-col cols="5">
-            <input
-              type="search"
-              name="navSearch"
-              id="navSearch"
-              style="width: 80%; border-radius: 30px; outline: none"
-              placeholder="Search..."
-              class="py-3 px-5 bg-white"
-            />
-          </v-col>
-          <v-col cols="4" class="ps-9">
-            <div
-              class="parent text-white d-flex justify-space-around align-center"
+            <ul
+              class="links d-flex text-white align-center"
+              style="list-style: none; gap: 45px"
             >
-              <div class="avalible">
-                <span>Avalible 24/7 at </span>
-                <br />
-                <strong>(+880 123 456 789)</strong>
-              </div>
-              <div class="whishlist d-flex align-center flex-column">
-                <svg
-                  viewBox="0 0 512 512"
-                  class="icon icon-wishlist"
-                  style="width: 30px; fill: orange"
+              <li v-for="category in categories" :key="category.title">
+                <router-link
+                  style="color: white; text-decoration: none"
+                  :to="{
+                    name: 'products_category',
+                    params: { category: category.route, title: category.title },
+                  }"
+                  >{{ category.title }}</router-link
                 >
-                  <g>
-                    <g>
-                      <path
-                        d="M474.644,74.27C449.391,45.616,414.358,29.836,376,29.836c-53.948,0-88.103,32.22-107.255,59.25
-        c-4.969,7.014-9.196,14.047-12.745,20.665c-3.549-6.618-7.775-13.651-12.745-20.665c-19.152-27.03-53.307-59.25-107.255-59.25
-        c-38.358,0-73.391,15.781-98.645,44.435C13.267,101.605,0,138.213,0,177.351c0,42.603,16.633,82.228,52.345,124.7
-        c31.917,37.96,77.834,77.088,131.005,122.397c19.813,16.884,40.302,34.344,62.115,53.429l0.655,0.574
-        c2.828,2.476,6.354,3.713,9.88,3.713s7.052-1.238,9.88-3.713l0.655-0.574c21.813-19.085,42.302-36.544,62.118-53.431
-        c53.168-45.306,99.085-84.434,131.002-122.395C495.367,259.578,512,219.954,512,177.351
-        C512,138.213,498.733,101.605,474.644,74.27z M309.193,401.614c-17.08,14.554-34.658,29.533-53.193,45.646
-        c-18.534-16.111-36.113-31.091-53.196-45.648C98.745,312.939,30,254.358,30,177.351c0-31.83,10.605-61.394,29.862-83.245
-        C79.34,72.007,106.379,59.836,136,59.836c41.129,0,67.716,25.338,82.776,46.594c13.509,19.064,20.558,38.282,22.962,45.659
-        c2.011,6.175,7.768,10.354,14.262,10.354c6.494,0,12.251-4.179,14.262-10.354c2.404-7.377,9.453-26.595,22.962-45.66
-        c15.06-21.255,41.647-46.593,82.776-46.593c29.621,0,56.66,12.171,76.137,34.27C471.395,115.957,482,145.521,482,177.351
-        C482,254.358,413.255,312.939,309.193,401.614z"
-                      ></path>
-                    </g>
-                  </g>
-                </svg>
-                <span class="text-orange">whishlist</span>
-              </div>
-              <div class="whishlist d-flex align-center flex-column">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  class="icon icon-account"
-                  viewBox="0 0 1024 1024"
-                  width="100%"
-                  height="100%"
-                  style="width: 30px; fill: orange"
+              </li>
+            </ul>
+          </v-col>
+          <v-col cols="4">
+            <div
+              class="parent text-white d-flex justify-end align-center"
+              style="margin-top: -12px"
+            >
+              <div
+                class="help d-flex align-center"
+                style="gap: 8px; cursor: pointer; margin-right: 20px"
+                id="language"
+              >
+                <span
+                  style="width: 20px; margin-bottom: -8px; margin-left: 22px"
+                  v-bind:innerHTML="slectedLanguage[0].icon"
+                ></span>
+                <span class="text-white"
+                  >{{ slectedLanguage[0].title }}/{{
+                    slectedLanguage[0].currency
+                  }}</span
                 >
-                  <title>user</title>
-                  <path
-                    class="path1"
-                    d="M486.4 563.2c-155.275 0-281.6-126.325-281.6-281.6s126.325-281.6 281.6-281.6 281.6 126.325 281.6 281.6-126.325 281.6-281.6 281.6zM486.4 51.2c-127.043 0-230.4 103.357-230.4 230.4s103.357 230.4 230.4 230.4c127.042 0 230.4-103.357 230.4-230.4s-103.358-230.4-230.4-230.4z"
-                  ></path>
-                  <path
-                    class="path2"
-                    d="M896 1024h-819.2c-42.347 0-76.8-34.451-76.8-76.8 0-3.485 0.712-86.285 62.72-168.96 36.094-48.126 85.514-86.36 146.883-113.634 74.957-33.314 168.085-50.206 276.797-50.206 108.71 0 201.838 16.893 276.797 50.206 61.37 27.275 110.789 65.507 146.883 113.634 62.008 82.675 62.72 165.475 62.72 168.96 0 42.349-34.451 76.8-76.8 76.8zM486.4 665.6c-178.52 0-310.267 48.789-381 141.093-53.011 69.174-54.195 139.904-54.2 140.61 0 14.013 11.485 25.498 25.6 25.498h819.2c14.115 0 25.6-11.485 25.6-25.6-0.006-0.603-1.189-71.333-54.198-140.507-70.734-92.304-202.483-141.093-381.002-141.093z"
-                  ></path>
-                </svg>
-                <span class="text-orange">Sign in</span>
+                <v-icon style="cursor: pointer">mdi-chevron-down</v-icon>
+                <v-menu activator="#language">
+                  <v-list v-model:selected="slectedLanguage" mandatory="true">
+                    <v-list-item
+                      v-for="lang in language"
+                      :key="lang.title"
+                      :value="lang"
+                    >
+                      <v-list-item-title
+                        class="d-flex align-center"
+                        style="gap: 10px"
+                      >
+                        <span style="width: 20px" v-html="lang.icon"></span>
+                        {{ lang.title }}/{{ lang.currency }}
+                      </v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
               </div>
               <div
                 class="whishlist d-flex align-center flex-column"
-                :style="`cursor:pointer;pointer-events:${
+                :style="`cursor:pointer;margin-left: 20px;pointer-events:${
                   $route.name === 'card-product' ? 'none' : 'unset'
                 }`"
                 @click="openCart"
@@ -113,78 +100,6 @@
                 </svg>
                 <span class="text-orange">Cart</span>
               </div>
-            </div>
-          </v-col>
-          <v-col cols="8">
-            <ul
-              class="links d-flex text-white align-center"
-              style="list-style: none; gap: 45px"
-            >
-              <li v-for="category in categories" :key="category.title">
-                <router-link
-                  style="color: white; text-decoration: none"
-                  :to="{
-                    name: 'products_category',
-                    params: { category: category.route, title: category.title },
-                  }"
-                  >{{ category.title }}</router-link
-                >
-              </li>
-            </ul>
-          </v-col>
-          <v-col cols="4" class="d-flex justify-end" style="gap: 35px">
-            <div class="help d-flex align-center">
-              <svg
-                aria-hidden="true"
-                focusable="false"
-                data-prefix="fas"
-                data-icon="user-headset"
-                role="img"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
-                class="svg-inline--fa fa-user-headset fa-w-14 fa-3x"
-                style="width: 20px"
-              >
-                <path
-                  fill="currentColor"
-                  d="M320 352h-23.1a174.08 174.08 0 0 1-145.8 0H128A128 128 0 0 0 0 480a32 32 0 0 0 32 32h384a32 32 0 0 0 32-32 128 128 0 0 0-128-128zM48 224a16 16 0 0 0 16-16v-16c0-88.22 71.78-160 160-160s160 71.78 160 160v16a80.09 80.09 0 0 1-80 80h-32a32 32 0 0 0-32-32h-32a32 32 0 0 0 0 64h96a112.14 112.14 0 0 0 112-112v-16C416 86.13 329.87 0 224 0S32 86.13 32 192v16a16 16 0 0 0 16 16zm160 0h32a64 64 0 0 1 55.41 32H304a48.05 48.05 0 0 0 48-48v-16a128 128 0 0 0-256 0c0 40.42 19.1 76 48.35 99.47-.06-1.17-.35-2.28-.35-3.47a64.07 64.07 0 0 1 64-64z"
-                  class=""
-                ></path>
-              </svg>
-              <span class="text-white ml-2">Help</span>
-            </div>
-            <div
-              class="help d-flex align-center"
-              style="gap: 5px; cursor: pointer"
-              id="language"
-            >
-              <span
-                style="width: 20px; margin-bottom: -8px; margin-left: 22px"
-                v-bind:innerHTML="slectedLanguage[0].icon"
-              ></span>
-              <span class="text-white"
-                >{{ slectedLanguage[0].title }}/{{
-                  slectedLanguage[0].currency
-                }}</span
-              >
-              <v-icon style="cursor: pointer">mdi-chevron-down</v-icon>
-              <v-menu activator="#language">
-                <v-list v-model:selected="slectedLanguage" mandatory="true">
-                  <v-list-item
-                    v-for="lang in language"
-                    :key="lang.title"
-                    :value="lang"
-                  >
-                    <v-list-item-title
-                      class="d-flex align-center"
-                      style="gap: 10px"
-                    >
-                      <span style="width: 20px" v-html="lang.icon"></span>
-                      {{ lang.title }}/{{ lang.currency }}
-                    </v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
             </div>
           </v-col>
         </v-row>

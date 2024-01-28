@@ -9,7 +9,7 @@
             ? '0px'
             : windowWidth <= 990
             ? '10px'
-            : '8%'
+            : '5%'
         } `"
       >
         <slot></slot>
