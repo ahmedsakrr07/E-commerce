@@ -14,7 +14,7 @@
           <v-col cols="5">
             <ul
               class="links d-flex text-white align-center"
-              style="list-style: none; gap: 38px; margin-left: -47px"
+              style="list-style: none; gap: 38px; margin-left: -12px"
             >
               <li v-for="category in categories" :key="category.title">
                 <router-link
@@ -33,7 +33,7 @@
               class="parent text-white d-flex justify-end align-center"
               style="margin-top: -12px"
             >
-              <!-- <div
+              <div
                 class="help d-flex align-center"
                 style="gap: 8px; cursor: pointer; margin-right: -21px"
                 id="language"
@@ -65,7 +65,7 @@
                     </v-list-item>
                   </v-list>
                 </v-menu>
-              </div> -->
+              </div>
               <div
                 class="whishlist d-flex align-center flex-column"
                 :style="`cursor:pointer;margin-left: 55px;margin-right: -100px;pointer-events:${
