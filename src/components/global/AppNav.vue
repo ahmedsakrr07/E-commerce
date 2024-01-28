@@ -35,11 +35,11 @@
             >
               <div
                 class="help d-flex align-center"
-                style="gap: 8px; cursor: pointer; margin-right: 20px"
+                style="gap: 8px; cursor: pointer; margin-right: -21px"
                 id="language"
               >
                 <span
-                  style="width: 20px; margin-bottom: -8px; margin-left: 22px"
+                  style="width: 20px; margin-bottom: -8px; margin-left: -29px"
                   v-bind:innerHTML="slectedLanguage[0].icon"
                 ></span>
                 <span class="text-white"
@@ -68,7 +68,7 @@
               </div>
               <div
                 class="whishlist d-flex align-center flex-column"
-                :style="`cursor:pointer;margin-left: 20px;pointer-events:${
+                :style="`cursor:pointer;margin-left: 55px;margin-right: -100px;pointer-events:${
                   $route.name === 'card-product' ? 'none' : 'unset'
                 }`"
                 @click="openCart"
