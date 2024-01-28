@@ -14,7 +14,7 @@
           <v-col cols="5">
             <ul
               class="links d-flex text-white align-center"
-              style="list-style: none; gap: 45px"
+              style="list-style: none; gap: 38px; margin-left: -47px"
             >
               <li v-for="category in categories" :key="category.title">
                 <router-link
