@@ -199,102 +199,131 @@
               style="color: black"
             ></v-divider>
             <v-card-text class="font-weight-bold">contact</v-card-text>
-            <v-row>
-              <v-col cols="12">
-                <v-select
-                  class="w-90 pt-0 px-0"
-                  style="border-radius: 30px"
-                  label="Select State"
-                  :items="[
-                    'Egypt',
-                    'Syria',
-                    'Tunisia',
-                    'Sudan',
-                    'Ksa',
-                    'Qatar',
-                    'UAE',
-                  ]"
-                  variant="outlined"
-                ></v-select>
-              </v-col>
-              <v-col cols="6">
-                <v-text-field
-                  class="w-90 pt0"
-                  label="First Name"
-                  variant="outlined"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="6">
-                <v-text-field
-                  class="w-90 pt0 pb-0"
-                  label="Last Name"
-                  variant="outlined"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="6">
-                <v-text-field
-                  class="w-90 pt0"
-                  label="Email Address"
-                  variant="outlined"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="6">
-                <v-text-field
-                  class="w-90 pt0"
-                  label="Phone Number"
-                  variant="outlined"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                  class="w-90 pt0"
-                  label="Address"
-                  variant="outlined"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="4">
-                <v-text-field
-                  class="w-90 pt0"
-                  label="city"
-                  variant="outlined"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="4">
-                <v-text-field
-                  class="w-90 pt0"
-                  label="governorate"
-                  variant="outlined"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="4">
-                <v-text-field
-                  class="w-90 pt0"
-                  label="Zip Code"
-                  variant="outlined"
-                ></v-text-field>
-              </v-col>
-              <v-card-actions>
-                <v-btn
-                  style="
-                    text-transform: none;
-                    border-color: white;
-                    width: 100%;
-                    background-color: #086fe6;
-                    color: white;
-                    font-size: 15px;
-                    font-weight: 500;
-                    margin-left: auto;
-                  "
-                  class="text-capitalize mb-5"
-                  density="compact"
-                  height="45"
-                  variant="elevated"
-                  elevation="0"
-                  @click="dailog = true"
-                  >Submit Order</v-btn
-                >
-              </v-card-actions>
-            </v-row>
+            <form @submit="submit">
+              <v-row>
+                <!-- <div class="error-list">
+                  <ul>
+                    <li
+                      class="text-red"
+                      v-for="(error, index) in formEror"
+                      :key="index"
+                    ></li>
+                  </ul>
+                </div> -->
+                <v-col cols="12">
+                  <v-select
+                    class="w-90 pt-0 px-0"
+                    style="border-radius: 30px"
+                    v-model="select"
+                    label="Select State"
+                    :items="[
+                      'Egypt',
+                      'Syria',
+                      'Tunisia',
+                      'Sudan',
+                      'Ksa',
+                      'Qatar',
+                      'UAE',
+                    ]"
+                    variant="outlined"
+                    required
+                  ></v-select>
+                </v-col>
+                <v-col cols="6">
+                  <v-text-field
+                    class="w-90 pt0"
+                    label="First Name"
+                    variant="outlined"
+                    required
+                    v-model="firstName"
+                  ></v-text-field>
+                  <span class="error text-red">{{ error }}</span>
+                </v-col>
+                <v-col cols="6">
+                  <v-text-field
+                    class="w-90 pt0 pb-0"
+                    label="Last Name"
+                    variant="outlined"
+                    v-model="lastName"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="6">
+                  <v-text-field
+                    class="w-90 pt0"
+                    label="Email Address"
+                    variant="outlined"
+                    required
+                    v-model="email"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="6">
+                  <v-text-field
+                    class="w-90 pt0"
+                    label="Phone Number"
+                    variant="outlined"
+                    required
+                    v-model="phone"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    class="w-90 pt0"
+                    label="Address"
+                    variant="outlined"
+                    required
+                    v-model="address"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4">
+                  <v-text-field
+                    class="w-90 pt0"
+                    label="city"
+                    variant="outlined"
+                    v-model="city"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4">
+                  <v-text-field
+                    class="w-90 pt0"
+                    label="governorate"
+                    variant="outlined"
+                    v-model="governorate"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4">
+                  <v-text-field
+                    class="w-90 pt0"
+                    label="Zip Code"
+                    variant="outlined"
+                    v-model="zipCode"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-card-actions>
+                  <v-btn
+                    style="
+                      text-transform: none;
+                      border-color: white;
+                      width: 100%;
+                      background-color: #086fe6;
+                      color: white;
+                      font-size: 15px;
+                      font-weight: 500;
+                      margin-left: auto;
+                    "
+                    class="text-capitalize mb-5"
+                    density="compact"
+                    height="45"
+                    variant="elevated"
+                    elevation="0"
+                    type="submit"
+                    >Submit Order</v-btn
+                  >
+                </v-card-actions>
+              </v-row>
+            </form>
           </v-card>
           <v-divider
             class="mt-4"
@@ -330,6 +359,17 @@ export default {
   data() {
     return {
       dailog: false,
+      select: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      address: "",
+      city: "",
+      governorate: "",
+      zipCode: "",
+      formEror: [],
+      maxChart: 8,
     };
   },
   computed: {
@@ -340,6 +380,23 @@ export default {
         total += item.price * item.quantity;
       });
       return total;
+    },
+  },
+  methods: {
+    submit(e) {
+      e.preventDefault();
+      if (
+        this.firstName &&
+        this.lastName &&
+        this.email &&
+        this.phone &&
+        this.address &&
+        this.city &&
+        this.governorate &&
+        this.zipCode
+      ) {
+        this.dailog = true;
+      }
     },
   },
 };
