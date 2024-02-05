@@ -201,15 +201,6 @@
             <v-card-text class="font-weight-bold">contact</v-card-text>
             <form @submit="submit">
               <v-row>
-                <!-- <div class="error-list">
-                  <ul>
-                    <li
-                      class="text-red"
-                      v-for="(error, index) in formEror"
-                      :key="index"
-                    ></li>
-                  </ul>
-                </div> -->
                 <v-col cols="12">
                   <v-select
                     class="w-90 pt-0 px-0"
@@ -223,7 +214,6 @@
                       'Sudan',
                       'Ksa',
                       'Qatar',
-                      'UAE',
                     ]"
                     variant="outlined"
                     required
@@ -231,13 +221,18 @@
                 </v-col>
                 <v-col cols="6">
                   <v-text-field
-                    class="w-90 pt0"
+                    class="w-90 pt0 mb-0 pb-0"
                     label="First Name"
                     variant="outlined"
-                    required
                     v-model="firstName"
                   ></v-text-field>
-                  <span class="error text-red">{{ error }}</span>
+                  <span class="mt-0" v-for="error in v$.$errors" :key="error">
+                    <span
+                      style="color: red; font-size: 12px; font-weight: 600"
+                      v-if="error.$property == 'firstName'"
+                      >{{ error.$message }}</span
+                    >
+                  </span>
                 </v-col>
                 <v-col cols="6">
                   <v-text-field
@@ -246,33 +241,58 @@
                     variant="outlined"
                     v-model="lastName"
                   ></v-text-field>
+                  <span class="mt-0" v-for="error in v$.$errors" :key="error">
+                    <span
+                      style="color: red; font-size: 12px; font-weight: 600"
+                      v-if="error.$property == 'lastName'"
+                      >{{ error.$message }}</span
+                    >
+                  </span>
                 </v-col>
                 <v-col cols="6">
                   <v-text-field
                     class="w-90 pt0"
                     label="Email Address"
                     variant="outlined"
-                    required
                     v-model="email"
                   ></v-text-field>
+                  <span class="mt-0" v-for="error in v$.$errors" :key="error">
+                    <span
+                      style="color: red; font-size: 12px; font-weight: 600"
+                      v-if="error.$property == 'email'"
+                      >{{ error.$message }}</span
+                    >
+                  </span>
                 </v-col>
                 <v-col cols="6">
                   <v-text-field
                     class="w-90 pt0"
                     label="Phone Number"
                     variant="outlined"
-                    required
                     v-model="phone"
                   ></v-text-field>
+                  <span class="mt-0" v-for="error in v$.$errors" :key="error">
+                    <span
+                      style="color: red; font-size: 12px; font-weight: 600"
+                      v-if="error.$property == 'phone'"
+                      >{{ error.$message }}</span
+                    >
+                  </span>
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
                     class="w-90 pt0"
                     label="Address"
                     variant="outlined"
-                    required
                     v-model="address"
                   ></v-text-field>
+                  <span class="mt-0" v-for="error in v$.$errors" :key="error">
+                    <span
+                      style="color: red; font-size: 12px; font-weight: 600"
+                      v-if="error.$property == 'address'"
+                      >{{ error.$message }}</span
+                    >
+                  </span>
                 </v-col>
                 <v-col cols="4">
                   <v-text-field
@@ -280,8 +300,14 @@
                     label="city"
                     variant="outlined"
                     v-model="city"
-                    required
                   ></v-text-field>
+                  <span class="mt-0" v-for="error in v$.$errors" :key="error">
+                    <span
+                      style="color: red; font-size: 12px; font-weight: 600"
+                      v-if="error.$property == 'city'"
+                      >{{ error.$message }}</span
+                    >
+                  </span>
                 </v-col>
                 <v-col cols="4">
                   <v-text-field
@@ -289,8 +315,14 @@
                     label="governorate"
                     variant="outlined"
                     v-model="governorate"
-                    required
                   ></v-text-field>
+                  <span class="mt-0" v-for="error in v$.$errors" :key="error">
+                    <span
+                      style="color: red; font-size: 12px; font-weight: 600"
+                      v-if="error.$property == 'governorate'"
+                      >{{ error.$message }}</span
+                    >
+                  </span>
                 </v-col>
                 <v-col cols="4">
                   <v-text-field
@@ -298,8 +330,14 @@
                     label="Zip Code"
                     variant="outlined"
                     v-model="zipCode"
-                    required
                   ></v-text-field>
+                  <span class="mt-0" v-for="error in v$.$errors" :key="error">
+                    <span
+                      style="color: red; font-size: 12px; font-weight: 600"
+                      v-if="error.$property == 'zipCode'"
+                      >{{ error.$message }}</span
+                    >
+                  </span>
                 </v-col>
                 <v-card-actions>
                   <v-btn
@@ -351,10 +389,22 @@
 import { cartStore } from "@/stores/Cart";
 import { mapState } from "pinia";
 import SucessOrderVue from "@/components/Sucess/SucessOrder.vue";
+import useVuelidate from "@vuelidate/core";
+import {
+  required,
+  minLength,
+  maxLength,
+  alpha,
+  email,
+  numeric,
+} from "@vuelidate/validators";
 export default {
   name: "CheckOut",
   components: {
     SucessOrderVue,
+  },
+  setup() {
+    return { v$: useVuelidate() };
   },
   data() {
     return {
@@ -368,8 +418,55 @@ export default {
       city: "",
       governorate: "",
       zipCode: "",
-      formEror: [],
-      maxChart: 8,
+    };
+  },
+  validations() {
+    return {
+      firstName: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(10),
+        alpha,
+      },
+      lastName: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(10),
+        alpha,
+      },
+      email: {
+        required,
+        email,
+      },
+      phone: {
+        required,
+        minLength: minLength(0),
+        maxLength: maxLength(11),
+        numeric,
+      },
+      address: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(10),
+        alpha,
+      },
+      city: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(10),
+        alpha,
+      },
+      governorate: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(10),
+        alpha,
+      },
+      zipCode: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(10),
+      },
     };
   },
   computed: {
@@ -383,19 +480,13 @@ export default {
     },
   },
   methods: {
-    submit(e) {
+    async submit(e) {
       e.preventDefault();
-      if (
-        this.firstName &&
-        this.lastName &&
-        this.email &&
-        this.phone &&
-        this.address &&
-        this.city &&
-        this.governorate &&
-        this.zipCode
-      ) {
+      // this.dailog = true;
+      const res = await this.v$.$validate();
+      if (res) {
         this.dailog = true;
+        return;
       }
     },
   },
